@@ -59,6 +59,37 @@
         width:400px;
         margin:auto;
     }
+    table
+    {
+      width:650px;
+      margin:auto;
+      border-collapse:collapse;
+    }
+    th
+    {
+      border:1px solid black;
+      background:green;
+      color:snow;
+    }
+    td
+    {
+      border-bottom:1px solid black;
+      padding:5px;
+    }
+    td:nth-child(odd)
+    {
+      width:40px;
+      border-right:1px solid black;
+      border-left:1px solid black;
+    }
+    tr:first-child
+    {
+      border-bottom:1px solid black;
+    }
+    td:nth-child(even)
+    {
+      width:450px;
+    }
     a
     {
         text-decoration: none;
@@ -94,7 +125,7 @@
 <br>
 <div class="todo">
     <form action="" method="post">
-        <label for="task"></label><input type="text" name="task" id="task">
+        <input type="text" name="task" id="task">
         <input type="submit" name="add" value="add">
     </form>
 </div>
@@ -130,15 +161,19 @@
   // code for displaying
   $sql="select * from task";
   $exe=mysqli_query($con,$sql);
+  $i=1;
+  echo "<table><tr><th>s.no</th><th>Task</th><th>Action</th></tr><tr>";
   while($line=mysqli_fetch_assoc($exe))
   {
-      echo "<center><p>";
-      echo $line['task'];
+      
+      echo "<tr><td>".$i."</td>";
+      echo "<td>".$line['task']."</td>";
     ?>
-      &emsp;<a href="index.php?id=<?php echo $line['id'] ?>" name="delete" class="delete"><i class="fa fa-trash fa-2x"></i></a><p><center><hr>
+      <td><a href="index.php?id=<?php echo $line['id'] ?>" name="delete" class="delete"><i class="fa fa-trash fa-2x"></i></a></td></tr>
     <?php
+    $i++;
   }
-
+    echo "</table>";
   // code for deleting
   if(isset($_GET['id']))
   {
